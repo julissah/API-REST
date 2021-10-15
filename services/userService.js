@@ -37,6 +37,7 @@ class UsersService {
   }
 
   async findOne(id) {
+    const name = this.getTotal();
     return this.users.find(item => item.id == id);
   }
 
