@@ -2,7 +2,7 @@ const express = require('express');
 const routerApi = require('./routes/index');
 
 const app = express();
-const port = 3001;
+const port = 3002;
 // Permite recibir informacion de tipo JSON que nos envian por POST
 app.use(express.json());
 

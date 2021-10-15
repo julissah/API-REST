@@ -6,7 +6,7 @@ class UsersService {
     this.generate();
   }
 
-  generate() {
+  async generate() {
     const limit = 100;
     for (let i = 0; i < limit; i++) {
       this.users.push({
@@ -17,9 +17,9 @@ class UsersService {
         jobArea: faker.name.jobArea()
       });
     };
-  };
+  }
 
-  create(data) {
+  async create(data) {
     const newUser = {
       id: faker.datatype.uuid(),
       ...data
@@ -29,14 +29,18 @@ class UsersService {
   }
 
   find() {
-    return this.users;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.users);
+      }, 5000);
+    })
   }
 
-  findOne(id) {
+  async findOne(id) {
     return this.users.find(item => item.id == id);
   }
 
-  update(id, changes) {
+  async update(id, changes) {
     const index = this.users.findIndex(item => item.id == id)
     if (index === -1) {
       throw new Error('user not found');
@@ -49,7 +53,7 @@ class UsersService {
     return this.users[index];
   }
 
-  delete(id) {
+  async delete(id) {
     const index = this.users.findIndex(item => item.id == id)
     if (index === -1) {
       throw new Error('user not found');
