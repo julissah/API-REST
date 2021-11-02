@@ -5,7 +5,7 @@ const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/err
 
 
 const app = express();
-const port = 3002;
+const port = process.env.PORT || 3002;
 // Permite recibir informacion de tipo JSON que nos envian por POST
 app.use(express.json());
 // Si nuestra API no es publica y solo queremos que solo algunos dominios puedan acceder
@@ -16,7 +16,7 @@ const whiteList = [
 ];
 const options = {
   origin: (origin, callback) => {
-    if(whiteList.includes(origin)) {
+    if(whiteList.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error('No permitido'));
